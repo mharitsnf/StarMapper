@@ -5,4 +5,5 @@
 [resource]
 resource_local_to_scene = true
 next_pass = ExtResource("1_tj32i")
+transparency = 1
 shading_mode = 0

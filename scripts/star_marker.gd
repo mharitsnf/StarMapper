@@ -7,6 +7,7 @@ var time_controller : TimeController
 var is_pulsating := false
 var _previous_pulsating_speed := -1.
 var pulsating_speed := -1.
+var alpha_range = Vector2(0, 1)
 
 var selected_mat : StandardMaterial3D = preload("res://materials/selected_material.tres")
 var active_material : StandardMaterial3D
@@ -24,24 +25,51 @@ func _ready():
 
 func _process(_delta):
     if is_pulsating:
-        active_material.albedo_color.a = sin(time_controller.get_time_elapsed() * pulsating_speed)
+        var new_a = remap_values(
+            sin(time_controller.get_time_elapsed() * pulsating_speed),
+            0., 1.,
+            alpha_range.x, alpha_range.y
+        )
+        active_material.albedo_color.a = new_a
 
 
 func set_selected_material(value : bool):
     next_pass.albedo_color.a = int(value)
 
 
+func get_is_pulsating():
+    return is_pulsating
+
+
 func set_is_pulsating(value : bool):
     is_pulsating = value
-    pulsating_speed = _previous_pulsating_speed if value else -1.
     
-    # Reset albedo
-    if !value: active_material.albedo_color.a = 1
+    if value:
+        pulsating_speed = _previous_pulsating_speed
+    else:
+        pulsating_speed = -1.
+        active_material.albedo_color.a = 1
+
+
+func set_alpha_range(new_range : Vector2):
+    alpha_range = new_range
+
+
+func get_alpha_range() -> Vector2:
+    return alpha_range
+
+
+func get_pulsating_speed():
+    return pulsating_speed
 
 
 func set_pulsating_speed(value : float):
     pulsating_speed = value
     _previous_pulsating_speed = value
+
+
+func remap_values(old_value, old_min, old_max, new_min, new_max) -> float:
+    return (((old_value - old_min) * (new_max - new_min)) / (old_max - old_min)) + new_min
 
 
 func save() -> Dictionary:
@@ -52,4 +80,6 @@ func save() -> Dictionary:
         "tp_x": global_position.x,
         "tp_y": global_position.y,
         "tp_z": global_position.z,
+        "is_pulsating": is_pulsating,
+        "pulsating_speed": pulsating_speed,
     }
