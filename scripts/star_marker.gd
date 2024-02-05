@@ -7,7 +7,7 @@ var time_controller : TimeController
 var is_pulsating := false
 var _previous_pulsating_speed := -1.
 var pulsating_speed := -1.
-var alpha_range = Vector2(0, 1)
+var alpha_range = Vector2(-1, 1)
 
 var selected_mat : StandardMaterial3D = preload("res://materials/selected_material.tres")
 var active_material : StandardMaterial3D
@@ -27,7 +27,7 @@ func _process(_delta):
     if is_pulsating:
         var new_a = remap_values(
             sin(time_controller.get_time_elapsed() * pulsating_speed),
-            0., 1.,
+            -1., 1.,
             alpha_range.x, alpha_range.y
         )
         active_material.albedo_color.a = new_a

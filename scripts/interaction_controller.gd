@@ -41,7 +41,7 @@ func _physics_process(_delta):
 			print("Error: set data failed")
 			return
 		
-		cmd_res = new_command.action([pulsating_button, pulsating_speed_input, x_value_input, y_value_input])
+		cmd_res = new_command.action([pulsating_button, pulsating_speed_input, x_value_input, y_value_input, color_picker])
 		if !cmd_res.status:
 			print("Error: set selection failed")
 			return
@@ -121,7 +121,7 @@ func _unhandled_input(event):
 		var command : Command = command_record.pop_back()
 
 		var cmd_res : Dictionary
-		if command is CommandSelect: cmd_res = command.undo([pulsating_button, pulsating_speed_input, x_value_input, y_value_input])
+		if command is CommandSelect: cmd_res = command.undo([pulsating_button, pulsating_speed_input, x_value_input, y_value_input, color_picker])
 		else: cmd_res = command.undo()
 		
 		if !cmd_res.status:
