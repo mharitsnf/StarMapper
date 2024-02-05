@@ -32,7 +32,12 @@ func action(args := []) -> Dictionary:
 
 func undo(_args := []) -> Dictionary:
 	if !target_marker: return {"status": false}
+	if !prev_is_pulsating: return {"status": false}
+	if !prev_pulsating_speed: return {"status": false}
+	if !prev_alpha_range: return {"status": false}
+	
 	target_marker.set_is_pulsating(prev_is_pulsating)
 	target_marker.set_pulsating_speed(prev_pulsating_speed)
 	target_marker.set_alpha_range(prev_alpha_range)
+	
 	return {"status": true}

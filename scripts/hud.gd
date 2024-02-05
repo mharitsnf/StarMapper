@@ -11,6 +11,7 @@ class_name HUD extends Control
 @export var x_value_input : LineEdit
 @export var y_value_input : LineEdit
 @export var color_picker : ColorPicker
+@export var color_apply : Button
 @export var interaction_controller : InteractionController
 
 var is_active : bool = true
@@ -26,6 +27,7 @@ func _ready():
 	save_button.pressed.connect(_on_save)
 	load_button.pressed.connect(_on_load)
 	pulsating_apply.pressed.connect(_on_pulsating_applied)
+	color_apply.pressed.connect(_on_color_applied)
 
 
 func _on_save():
@@ -67,12 +69,29 @@ func _on_load():
 			continue
 		
 		var data = json.get_data()
-		var target_pos := Vector3(data.tp_x, data.tp_y, data.tp_z)
 		var marker : StarMarker = marker_pscn.instantiate()
 		interaction_controller.marker_container.add_child(marker)
-		marker.global_position = target_pos
+		marker.load(data)
 	
 	notif_label.text = "File loaded!"
+
+
+func _on_color_applied():
+	var target_marker := interaction_controller.get_current_marker()
+	if !target_marker: return
+
+	var new_command = CommandChangeColor.new()
+	var cmd_res := new_command.set_data([target_marker])
+	if !cmd_res.status:
+		print("Error: set data failed")
+		return
+	
+	cmd_res = new_command.action([color_picker.color])
+	if !cmd_res.status:
+		print("Error: change color failed")
+		return
+	
+	interaction_controller.add_command(new_command)
 
 
 func _on_pulsating_applied():
