@@ -46,7 +46,7 @@ func _physics_process(_delta):
 			return
 		
 		current_marker = cmd_res.selected_marker
-		command_record.append(new_command)
+		add_command(new_command)
 
 	# Create marker
 	if Input.is_action_just_pressed("place_marker"):
@@ -64,7 +64,7 @@ func _physics_process(_delta):
 			print("Error: create marker failed")
 			return 
 		
-		command_record.append(new_command)
+		add_command(new_command)
 
 	# Delete marker
 	if Input.is_action_just_pressed("delete_marker"):
@@ -83,7 +83,7 @@ func _physics_process(_delta):
 			print("Error: delete marker failed")
 			return 
 		
-		command_record.append(new_command)
+		add_command(new_command)
 
 
 func get_current_marker() -> StarMarker:
@@ -109,6 +109,10 @@ func _query_raycast(col_mask : int) -> Dictionary:
 	var query := PhysicsRayQueryParameters3D.create(from, to, col_mask)
 
 	return space_state.intersect_ray(query)
+
+
+func add_command(new_command : Command):
+	command_record.append(new_command)
 
 
 func _unhandled_input(event):
