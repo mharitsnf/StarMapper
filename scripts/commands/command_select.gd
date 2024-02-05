@@ -48,8 +48,8 @@ func undo(args := []) -> Dictionary:
 		previous_marker.set_selected_material(true)
 		check_button.button_pressed = previous_marker.get_is_pulsating()
 		input.text = str(previous_marker.get_pulsating_speed())
-		x_input.text = str(selected_marker.get_alpha_range().x)
-		y_input.text = str(selected_marker.get_alpha_range().y)
+		x_input.text = str(previous_marker.get_alpha_range().x)
+		y_input.text = str(previous_marker.get_alpha_range().y)
 	else:
 		check_button.button_pressed = false
 		input.text = str("")

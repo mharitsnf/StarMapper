@@ -78,15 +78,26 @@ func _on_load():
 func _on_pulsating_applied():
 	var target_marker := interaction_controller.get_current_marker()
 	if !target_marker: return
-	
-	var pulsating_speed : float = max(float(pulsating_speed_input.text), 0.)
 
-	target_marker.set_is_pulsating(is_pulsating_button.button_pressed)
-	target_marker.set_pulsating_speed(pulsating_speed)
-	target_marker.set_alpha_range(Vector2(
-		clamp(float(x_value_input.text), 0., 1.),
-		clamp(float(y_value_input.text), 0., 1.),
-	))
+	var new_command = CommandChangePulsating.new()
+	var cmd_res := new_command.set_data([target_marker])
+	if !cmd_res.status:
+		print("Error: set data failed")
+		return
+	
+	cmd_res = new_command.action([
+		is_pulsating_button.button_pressed,
+		max(float(pulsating_speed_input.text), 0.),
+		Vector2(
+			clamp(float(x_value_input.text), 0., 1.),
+			clamp(float(y_value_input.text), 0., 1.),
+		)
+	])
+	if !cmd_res.status:
+		print("Error: change pulsating data failed")
+		return
+	
+	interaction_controller.add_command(new_command)
 
 
 func get_is_active():
