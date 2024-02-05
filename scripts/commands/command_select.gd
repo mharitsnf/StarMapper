@@ -13,11 +13,12 @@ func set_data(args := []) -> Dictionary:
 
 
 func action(args := []) -> Dictionary:
-	if args.size() != 4: return {"status": false}
+	if args.size() != 5: return {"status": false}
 	var check_button : CheckButton = args[0]
 	var input : LineEdit = args[1]
 	var x_input : LineEdit = args[2]
 	var y_input : LineEdit = args[3]
+	var color_picker : ColorPicker = args[4]
 
 	if previous_marker:
 		previous_marker.set_selected_material(false)
@@ -28,6 +29,7 @@ func action(args := []) -> Dictionary:
 		input.text = str(selected_marker.get_pulsating_speed())
 		x_input.text = str(selected_marker.get_alpha_range().x)
 		y_input.text = str(selected_marker.get_alpha_range().y)
+		color_picker.color = selected_marker.get_color()
 	else:
 		check_button.button_pressed = false
 		input.text = str("")
@@ -38,11 +40,12 @@ func action(args := []) -> Dictionary:
 
 
 func undo(args := []) -> Dictionary:
-	if args.size() != 4: return {"status": false}
+	if args.size() != 5: return {"status": false}
 	var check_button : CheckButton = args[0]
 	var input : LineEdit = args[1]
 	var x_input : LineEdit = args[2]
 	var y_input : LineEdit = args[3]
+	var color_picker : ColorPicker = args[4]
 	
 	if previous_marker:
 		previous_marker.set_selected_material(true)
@@ -50,6 +53,7 @@ func undo(args := []) -> Dictionary:
 		input.text = str(previous_marker.get_pulsating_speed())
 		x_input.text = str(previous_marker.get_alpha_range().x)
 		y_input.text = str(previous_marker.get_alpha_range().y)
+		color_picker.color = previous_marker.get_color()
 	else:
 		check_button.button_pressed = false
 		input.text = str("")
