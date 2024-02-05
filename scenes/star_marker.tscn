@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bd1xm1ohkh53c"]
+
+[ext_resource type="Script" path="res://scripts/star_marker.gd" id="1_hi8nd"]
+[ext_resource type="Material" uid="uid://ct6ca88v5mphd" path="res://materials/base_material.tres" id="2_evpn2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_0c144"]
+resource_local_to_scene = true
+radius = 1.0
+height = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4sfkv"]
+radius = 1.0
+
+[node name="StarMarker" type="Marker3D" node_paths=PackedStringArray("mesh")]
+script = ExtResource("1_hi8nd")
+mesh = NodePath("StaticBody3D/MeshInstance3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("SphereMesh_0c144")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_evpn2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SphereShape3D_4sfkv")

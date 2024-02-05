@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://ct6ca88v5mphd"]
+
+[ext_resource type="Material" uid="uid://uemxhnljxxs2" path="res://materials/selected_material.tres" id="1_tj32i"]
+
+[resource]
+resource_local_to_scene = true
+next_pass = ExtResource("1_tj32i")
+shading_mode = 0
