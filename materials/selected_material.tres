@@ -5,6 +5,6 @@ resource_local_to_scene = true
 transparency = 1
 cull_mode = 1
 shading_mode = 0
-albedo_color = Color(0, 0, 0, 1)
+albedo_color = Color(0, 0, 0, 0)
 grow = true
 grow_amount = 1.0

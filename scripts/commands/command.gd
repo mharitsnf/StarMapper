@@ -1,14 +1,14 @@
 class_name Command extends Node
 
 
-func set_data(_args : Array = []) -> bool:
-    return true
+func set_data(_args : Array = []) -> Dictionary:
+    return {"status": true}
 
-func action(_args : Array = []) -> bool:
-    return true
+func action(_args : Array = []) -> Dictionary:
+    return {"status": true}
 
-func undo(_args : Array = []) -> bool:
-    return true
+func undo(_args : Array = []) -> Dictionary:
+    return {"status": true}
 
-func destroy() -> bool:
-    return true
+func destroy() -> Dictionary:
+    return {"status": true}
