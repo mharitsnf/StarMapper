@@ -7,6 +7,7 @@ class_name InteractionController extends Node3D
 @export var pulsating_speed_input : LineEdit
 @export var x_value_input : LineEdit
 @export var y_value_input : LineEdit
+@export var color_picker : ColorPicker
 @export_group("3D Nodes")
 @export var time_controller : TimeController
 @export var camera : Camera3D

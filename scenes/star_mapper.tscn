@@ -60,12 +60,13 @@ spring_length = 200.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraGimbal/SpringArm3D"]
 
-[node name="InteractionController" type="Node3D" parent="." node_paths=PackedStringArray("pulsating_button", "pulsating_speed_input", "x_value_input", "y_value_input", "time_controller", "camera", "marker_container")]
+[node name="InteractionController" type="Node3D" parent="." node_paths=PackedStringArray("pulsating_button", "pulsating_speed_input", "x_value_input", "y_value_input", "color_picker", "time_controller", "camera", "marker_container")]
 script = ExtResource("1_lglei")
 pulsating_button = NodePath("../CanvasLayer/HUD/SelectedMarkerPanel/VBoxContainer/IsPulsating/CheckButton")
 pulsating_speed_input = NodePath("../CanvasLayer/HUD/SelectedMarkerPanel/VBoxContainer/PulsatingSpeed/PulseSpeedInput")
 x_value_input = NodePath("../CanvasLayer/HUD/SelectedMarkerPanel/VBoxContainer/AlphaRange/XValue")
 y_value_input = NodePath("../CanvasLayer/HUD/SelectedMarkerPanel/VBoxContainer/AlphaRange/YValue")
+color_picker = NodePath("../CanvasLayer/HUD/ColorPickerPanel/VBoxContainer/ColorPicker")
 time_controller = NodePath("../TimeController")
 camera = NodePath("../CameraGimbal/SpringArm3D/Camera3D")
 marker_container = NodePath("../MarkerContainer")
@@ -77,7 +78,7 @@ script = ExtResource("4_d4aw8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HUD" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("filename_input", "save_button", "load_button", "notif_label", "is_pulsating_button", "pulsating_speed_input", "pulsating_apply", "x_value_input", "y_value_input", "color_picker", "interaction_controller")]
+[node name="HUD" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("filename_input", "save_button", "load_button", "notif_label", "is_pulsating_button", "pulsating_speed_input", "pulsating_apply", "x_value_input", "y_value_input", "color_picker", "color_apply", "interaction_controller")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -94,7 +95,8 @@ pulsating_speed_input = NodePath("SelectedMarkerPanel/VBoxContainer/PulsatingSpe
 pulsating_apply = NodePath("SelectedMarkerPanel/VBoxContainer/Apply")
 x_value_input = NodePath("SelectedMarkerPanel/VBoxContainer/AlphaRange/XValue")
 y_value_input = NodePath("SelectedMarkerPanel/VBoxContainer/AlphaRange/YValue")
-color_picker = NodePath("ColorPickerPanel/ColorPicker")
+color_picker = NodePath("ColorPickerPanel/VBoxContainer/ColorPicker")
+color_apply = NodePath("ColorPickerPanel/VBoxContainer/ApplyColor")
 interaction_controller = NodePath("../../InteractionController")
 
 [node name="Panel" type="Panel" parent="CanvasLayer/HUD"]
@@ -155,14 +157,22 @@ layout_mode = 0
 offset_left = 1568.0
 offset_top = 208.0
 offset_right = 1904.0
-offset_bottom = 816.0
+offset_bottom = 864.0
 
-[node name="ColorPicker" type="ColorPicker" parent="CanvasLayer/HUD/ColorPickerPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/ColorPickerPanel"]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
-offset_right = 320.0
-offset_bottom = 592.0
+offset_right = 314.0
+offset_bottom = 639.0
+theme_override_constants/separation = 16
+
+[node name="ColorPicker" type="ColorPicker" parent="CanvasLayer/HUD/ColorPickerPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ApplyColor" type="Button" parent="CanvasLayer/HUD/ColorPickerPanel/VBoxContainer"]
+layout_mode = 2
+text = "Apply"
 
 [node name="Hints" type="Panel" parent="CanvasLayer/HUD"]
 layout_mode = 1
